@@ -16,11 +16,12 @@ private:
 
     std::unordered_map<std::string, property_def> prop;
     std::unordered_map<std::string, std::string> unknown_props;
-
-public:
     char sep = '=';
 
+public:
     property_list() {}
+    
+    property_list(char sep) : sep(sep) {}
 
     void register_property(std::string name, std::function<void (std::string const&)> parse_value,
                            std::function<std::string ()> serialize_value) {

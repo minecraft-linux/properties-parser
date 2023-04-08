@@ -18,6 +18,8 @@ private:
     std::unordered_map<std::string, std::string> unknown_props;
 
 public:
+    char sep = '=';
+
     property_list() {}
 
     void register_property(std::string name, std::function<void (std::string const&)> parse_value,
@@ -39,7 +41,7 @@ public:
         while (std::getline(stream, line)) {
             if (line.length() > 0 && line[0] == '#')
                 continue;
-            size_t i = line.find('=');
+            size_t i = line.find(sep);
             if (i == std::string::npos)
                 continue;
             set_property(line.substr(0, i), line.substr(i + 1));
@@ -48,7 +50,7 @@ public:
 
     void save(std::ostream& stream) {
         for (auto const& p : prop)
-            stream << p.first << '=' << p.second.serialize_value() << '\n';
+            stream << p.first << sep << p.second.serialize_value() << '\n';
     }
 
 };

@@ -40,6 +40,8 @@ public:
     void load(std::istream& stream) {
         std::string line;
         while (std::getline(stream, line)) {
+            // Reading files coming from windows use CRLF and readline does not protect us
+            line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
             if (line.length() > 0 && line[0] == '#')
                 continue;
             size_t i = line.find(sep);

@@ -53,8 +53,12 @@ public:
     }
 
     void save(std::ostream& stream) {
-        for (auto const& p : prop)
+        for (auto const& p : prop) {
             stream << p.first << sep << p.second.serialize_value() << '\n';
+        }
+        for (auto const& p : unknown_props) {
+            stream << p.first << sep << p.second << '\n';
+        }
     }
 
 };
